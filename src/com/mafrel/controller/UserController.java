@@ -33,6 +33,7 @@ public class UserController {
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	public User addUser(User u){
-		return us.addUser(u);
+		us.addUser(u);
+		return u;
 	}
 }
