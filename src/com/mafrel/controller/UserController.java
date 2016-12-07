@@ -23,13 +23,15 @@ public class UserController {
 	@Produces(MediaType.APPLICATION_JSON)
 	public ArrayList<User> listUsers(){
 		
+		User user=new User();
 		
-		//us.addUser();
+		us.addUser(user);
 		return us.listAllUsers();
 		
 	}
 	
 	@POST
+	@Path("/users")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	public User addUser(User u){

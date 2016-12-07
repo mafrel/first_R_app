@@ -6,6 +6,12 @@ public class User {
 	private int age;
 	private String address;
 	
+	public User(){
+		this.name="mafrel";
+		this.age=23;
+		this.address="ktm";
+	}
+	
 	public String getName() {
 		return name;
 	}
