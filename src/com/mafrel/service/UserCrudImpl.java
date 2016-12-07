@@ -1,15 +1,16 @@
 package com.mafrel.service;
 
-import java.awt.List;
 import java.util.ArrayList;
 
 import com.mafrel.model.User;
 
 public class UserCrudImpl implements UserCrud {
 
+	
 	ArrayList<User> user= new ArrayList<User>();
 	@Override
 	public User addUser(User u) {
+		
 		
 		
 		

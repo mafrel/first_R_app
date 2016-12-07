@@ -1,13 +1,15 @@
 package com.mafrel.controller;
 
-import java.util.ArrayList;
-
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
 
 import com.mafrel.model.User;
 import com.mafrel.service.UserCrud;
@@ -21,12 +23,22 @@ public class UserController {
 	@GET
 	@Path("/users")
 	@Produces(MediaType.APPLICATION_JSON)
-	public ArrayList<User> listUsers(){
+	public void listUsers(){
+		
+		Configuration conf= new Configuration();
+		conf.configure("hibernate.cfg.xml");
+		SessionFactory sf=conf.buildSessionFactory();
+		Session session= sf.openSession();
 		
 		User user=new User();
 		
-		us.addUser(user);
-		return us.listAllUsers();
+		
+		session.save(user);
+		
+		
+		
+		/*us.addUser(user);
+		return us.listAllUsers();*/
 		
 	}
 	
