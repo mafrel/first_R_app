@@ -1,1 +1,1 @@
-insert into user(address, age, name)  values("nepal", 145, "leguwa")
+insert into user(address, age, name)  values("new", 145, "new")
