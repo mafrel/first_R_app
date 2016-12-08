@@ -3,6 +3,7 @@ package com.mafrel.controller;
 import java.util.ArrayList;
 
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -41,5 +42,11 @@ public class UserController {
 	public User addUser(User u){
 		us.addUser(u);
 		return u;
+	}
+	
+	@DELETE
+	@Path("/users/{userid}")
+	public void deleteUser(@PathParam("userid") int uid){
+		us.deleteUser(uid);		
 	}
 }

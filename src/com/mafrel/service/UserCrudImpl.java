@@ -2,7 +2,6 @@ package com.mafrel.service;
 
 import java.util.ArrayList;
 
-import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
@@ -31,7 +30,14 @@ public class UserCrudImpl implements UserCrud {
 
 	@Override
 	public void deleteUser(int id) {
-		// TODO Auto-generated method stub
+		Configuration conf= new Configuration();
+		conf.configure("hibernate.cfg.xml");
+		SessionFactory sf=conf.buildSessionFactory();
+		Session session=sf.openSession();
+		
+		Query query=session.createQuery("delete user where id= :id");
+		query.setParameter("id", id);
+		int result= query.executeUpdate();
 
 	}
 
