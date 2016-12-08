@@ -9,4 +9,5 @@ public interface UserCrud {
 	void deleteUser(int id);
 	void updateUser(int id);
 	ArrayList<User> listAllUsers();
+	User findUserById(int id);
 }

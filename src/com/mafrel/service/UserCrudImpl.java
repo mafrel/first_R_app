@@ -2,35 +2,30 @@ package com.mafrel.service;
 
 import java.util.ArrayList;
 
+import org.hibernate.SQLQuery;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
+
 import com.mafrel.model.User;
 
 public class UserCrudImpl implements UserCrud {
-
 	
-	ArrayList<User> user= new ArrayList<User>();
+	
+	
+	
+
 	@Override
 	public User addUser(User u) {
+
+		Configuration conf= new Configuration();
+		conf.configure("hibernate.cfg.xml");
+		SessionFactory sf=conf.buildSessionFactory();
+		Session session= sf.openSession();
 		
+		session.save(u);
+		session.close();
 		
-		
-		
-		User us=new User();
-		us.setName(u.getName());
-		us.setAddress(u.getAddress());
-		us.setAge(u.getAge());		
-/*		
-		User us2=new User();
-		us2.setName("sarjib");
-		us2.setAddress("npl");
-		us2.setAge(18);		
-		user.add(us2);
-		
-		User us3=new User();
-		us3.setName("jack");
-		us3.setAddress("hbry");
-		us3.setAge(54);		
-		user.add(us3);
-*/		
 		return u; 
 	}
 
@@ -46,9 +41,29 @@ public class UserCrudImpl implements UserCrud {
 
 	}
 
+	/* (non-Javadoc)
+	 * @see com.mafrel.service.UserCrud#listAllUsers()
+	 */
 	@Override
 	public ArrayList<User> listAllUsers() {		
-		return user;
+
+		Configuration conf= new Configuration();
+		conf.configure("hibernate.cfg.xml");
+		SessionFactory sf= conf.buildSessionFactory();
+		Session session= sf.openSession();
+		
+		String sql= "select {user.*} from user";
+		SQLQuery query= session.createSQLQuery(sql);
+		query.addEntity("user", User.class);
+		ArrayList results=(ArrayList) query.list();
+		
+		return results;
+	}
+
+	@Override
+	public User findUserById(int id) {
+		
+		return null;
 	}
 
 }
