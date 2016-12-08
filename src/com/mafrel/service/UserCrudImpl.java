@@ -6,6 +6,7 @@ import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.query.Query;
 
 import com.mafrel.model.User;
 
@@ -22,7 +23,6 @@ public class UserCrudImpl implements UserCrud {
 		conf.configure("hibernate.cfg.xml");
 		SessionFactory sf=conf.buildSessionFactory();
 		Session session= sf.openSession();
-		
 		session.save(u);
 		session.close();
 		
@@ -52,18 +52,26 @@ public class UserCrudImpl implements UserCrud {
 		SessionFactory sf= conf.buildSessionFactory();
 		Session session= sf.openSession();
 		
-		String sql= "select {user.*} from user";
-		SQLQuery query= session.createSQLQuery(sql);
-		query.addEntity("user", User.class);
+		//String sql= "select * from user";
+		Query query= session.createQuery("from user");
 		ArrayList results=(ArrayList) query.list();
-		
 		return results;
 	}
 
 	@Override
 	public User findUserById(int id) {
 		
-		return null;
+		Configuration conf= new Configuration();
+		conf.configure("hibernate.cfg.xml");
+		SessionFactory sf= conf.buildSessionFactory();
+		Session session=sf.openSession();
+		
+		Query sql= session.createQuery("from user where id= :id");
+		sql.setParameter("id", id);
+		User result=(User) sql.list();
+		return result;
+		
+		
 	}
 
 }

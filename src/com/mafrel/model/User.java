@@ -1,7 +1,5 @@
 package com.mafrel.model;
 
-import java.util.Date;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -27,28 +25,22 @@ public class User {
 	@Column
 	private String address;
 	
-	/*@Column
-	private Date date;*/
-	
-	/*public Date getDate() {
-		return date;
-	}
-
-	public void setDate(Date date) {
-		this.date = date;
-	}*/
 
 	public User(){
-		/*this.date=new Date();*/
-		this.name="mafrel";
-		this.age=23;
-		this.address="ktm";
+		
 	}
 	
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
 	public String getName() {
 		return name;
 	}
-	
 
 	public void setName(String name) {
 		this.name = name;
@@ -65,9 +57,11 @@ public class User {
 	public void setAddress(String address) {
 		this.address = address;
 	}
-	
+
 	@Override
 	public String toString() {
-		return "User [name=" + name + ", age=" + age + ", address=" + address + "]";
+		return "User [id=" + id + ", name=" + name + ", age=" + age + ", address=" + address + "]";
 	}
+	
+	
 }
