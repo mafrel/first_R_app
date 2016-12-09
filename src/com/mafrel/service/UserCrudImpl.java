@@ -9,11 +9,9 @@ import org.hibernate.query.Query;
 
 import com.mafrel.model.User;
 
+import antlr.collections.List;
+
 public class UserCrudImpl implements UserCrud {
-	
-	
-	
-	
 
 	@Override
 	public User addUser(User u) {
@@ -35,8 +33,7 @@ public class UserCrudImpl implements UserCrud {
 		SessionFactory sf=conf.buildSessionFactory();
 		Session session=sf.openSession();
 		
-		Query query=session.createQuery("delete user where id= :id");
-		query.setParameter("id", id);
+		Query query=session.createQuery("delete user where id= :id").setParameter("id", id);
 		int result= query.executeUpdate();
 
 	}
@@ -47,9 +44,6 @@ public class UserCrudImpl implements UserCrud {
 
 	}
 
-	/* (non-Javadoc)
-	 * @see com.mafrel.service.UserCrud#listAllUsers()
-	 */
 	@Override
 	public ArrayList<User> listAllUsers() {		
 
@@ -58,10 +52,9 @@ public class UserCrudImpl implements UserCrud {
 		SessionFactory sf= conf.buildSessionFactory();
 		Session session= sf.openSession();
 		
-		//String sql= "select * from user";
-		Query query= session.createQuery("from user");
-		ArrayList results=(ArrayList) query.list();
-		return results;
+		ArrayList<User> result = (ArrayList<User>)session.createQuery("from User").list();
+		session.close();
+		return result;
 	}
 
 	@Override
@@ -70,14 +63,10 @@ public class UserCrudImpl implements UserCrud {
 		Configuration conf= new Configuration();
 		conf.configure("hibernate.cfg.xml");
 		SessionFactory sf= conf.buildSessionFactory();
-		Session session=sf.openSession();
+		Session session= sf.openSession();
 		
-		Query sql= session.createQuery("from user where id= :id");
-		sql.setParameter("id", id);
-		User result=(User) sql.list();
-		return result;
-		
-		
+		User u=session.get(User.class, id);
+		return u;
 	}
 
 }

@@ -32,7 +32,9 @@ public class UserController {
 	@Produces(MediaType.APPLICATION_JSON)
 	public User findUserById(@PathParam("userid") int id){
 		System.out.println(id);
-		return us.findUserById(id);
+		User u= us.findUserById(id);
+		return u;
+		
 	}
 	
 	@POST
@@ -47,6 +49,7 @@ public class UserController {
 	@DELETE
 	@Path("/users/{userid}")
 	public void deleteUser(@PathParam("userid") int uid){
+		System.out.println("path param="+uid);
 		us.deleteUser(uid);		
 	}
 }
