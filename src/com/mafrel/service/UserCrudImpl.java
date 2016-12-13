@@ -32,10 +32,25 @@ public class UserCrudImpl implements UserCrud {
 		conf.configure("hibernate.cfg.xml");
 		SessionFactory sf=conf.buildSessionFactory();
 		Session session=sf.openSession();
+		/*
+		Query query=session.createQuery("delete from user where id= :id");
+		query.setParameter("id", id);
+		query.executeUpdate();*/
 		
-		Query query=session.createQuery("delete user where id= :id").setParameter("id", id);
-		int result= query.executeUpdate();
-
+		
+		/*User user=session.load(User.class, id);
+		session.delete(user);
+		session.flush();*/
+		
+		session.beginTransaction();
+		User u= (User) session.get(User.class, id);
+		session.delete(u);
+		session.getTransaction().commit();
+		
+		
+		
+		
+		
 	}
 
 	@Override
