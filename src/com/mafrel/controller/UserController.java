@@ -15,20 +15,19 @@ import com.mafrel.model.User;
 import com.mafrel.service.UserCrud;
 import com.mafrel.service.UserCrudImpl;
 
-@Path("/UserService")
+@Path("/UserService/users")
 public class UserController {
 	
 	
 	UserCrud us=new UserCrudImpl();
 	@GET
-	@Path("/users")
 	@Produces(MediaType.APPLICATION_JSON)
 	public ArrayList<User> listUsers(){		
 		return us.listAllUsers();
 	}
 	
 	@GET
-	@Path("/users/{userid}")
+	@Path("/{userid}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public User findUserById(@PathParam("userid") int id){
 		System.out.println(id);
@@ -38,7 +37,6 @@ public class UserController {
 	}
 	
 	@POST
-	@Path("/users")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	public User addUser(User u){
@@ -47,7 +45,7 @@ public class UserController {
 	}
 	
 	@DELETE
-	@Path("/users/{userid}")
+	@Path("/{userid}")
 	public void deleteUser(@PathParam("userid") int uid){
 		System.out.println("path param="+uid);
 		us.deleteUser(uid);		

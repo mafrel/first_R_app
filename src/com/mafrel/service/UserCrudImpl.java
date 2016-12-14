@@ -16,10 +16,7 @@ public class UserCrudImpl implements UserCrud {
 	@Override
 	public User addUser(User u) {
 
-		Configuration conf= new Configuration();
-		conf.configure("hibernate.cfg.xml");
-		SessionFactory sf=conf.buildSessionFactory();
-		Session session= sf.openSession();
+		Session session = sessionInfo();
 		session.save(u);
 		session.close();
 		
@@ -28,10 +25,7 @@ public class UserCrudImpl implements UserCrud {
 
 	@Override
 	public void deleteUser(int id) {
-		Configuration conf= new Configuration();
-		conf.configure("hibernate.cfg.xml");
-		SessionFactory sf=conf.buildSessionFactory();
-		Session session=sf.openSession();
+		Session session = sessionInfo();
 		/*
 		Query query=session.createQuery("delete from user where id= :id");
 		query.setParameter("id", id);
@@ -53,6 +47,14 @@ public class UserCrudImpl implements UserCrud {
 		
 	}
 
+	private Session sessionInfo() {
+		Configuration conf= new Configuration();
+		conf.configure("hibernate.cfg.xml");
+		SessionFactory sf=conf.buildSessionFactory();
+		Session session=sf.openSession();
+		return session;
+	}
+
 	@Override
 	public void updateUser(int id) {
 		// TODO Auto-generated method stub
@@ -62,10 +64,7 @@ public class UserCrudImpl implements UserCrud {
 	@Override
 	public ArrayList<User> listAllUsers() {		
 
-		Configuration conf= new Configuration();
-		conf.configure("hibernate.cfg.xml");
-		SessionFactory sf= conf.buildSessionFactory();
-		Session session= sf.openSession();
+		Session session = sessionInfo();
 		
 		ArrayList<User> result = (ArrayList<User>)session.createQuery("from User").list();
 		session.close();
@@ -75,10 +74,7 @@ public class UserCrudImpl implements UserCrud {
 	@Override
 	public User findUserById(int id) {
 		
-		Configuration conf= new Configuration();
-		conf.configure("hibernate.cfg.xml");
-		SessionFactory sf= conf.buildSessionFactory();
-		Session session= sf.openSession();
+		Session session = sessionInfo();
 		
 		User u=session.get(User.class, id);
 		return u;
