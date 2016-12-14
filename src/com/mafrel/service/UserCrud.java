@@ -7,7 +7,7 @@ public interface UserCrud {
 	
 	User addUser(User u);
 	void deleteUser(int id);
-	void updateUser(int id);
+	void updateUser(int id, User u);
 	ArrayList<User> listAllUsers();
 	User findUserById(int id);
 }

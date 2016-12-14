@@ -26,25 +26,11 @@ public class UserCrudImpl implements UserCrud {
 	@Override
 	public void deleteUser(int id) {
 		Session session = sessionInfo();
-		/*
-		Query query=session.createQuery("delete from user where id= :id");
-		query.setParameter("id", id);
-		query.executeUpdate();*/
-		
-		
-		/*User user=session.load(User.class, id);
-		session.delete(user);
-		session.flush();*/
 		
 		session.beginTransaction();
 		User u= (User) session.get(User.class, id);
 		session.delete(u);
 		session.getTransaction().commit();
-		
-		
-		
-		
-		
 	}
 
 	private Session sessionInfo() {
@@ -56,8 +42,15 @@ public class UserCrudImpl implements UserCrud {
 	}
 
 	@Override
-	public void updateUser(int id) {
-		// TODO Auto-generated method stub
+	public void updateUser(int id, User u) {
+		Session session=sessionInfo();
+		session.beginTransaction();
+		Query query=session.createQuery("update User set name=:name, address=:address, age=:age where id=:id");
+		query.setParameter("name", u.getName());
+		query.setParameter("address", u.getAddress());
+		query.setParameter("age", u.getAge());
+		query.setParameter("id", id);
+		query.executeUpdate();
 
 	}
 
